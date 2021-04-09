@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <form onSubmit={handleSubmit}>
         <input type="text" name="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <button>Submit</button>
+        <button>Submit!!!</button>
       </form>
       {games.map(g => (
         <div key={g.name}>
