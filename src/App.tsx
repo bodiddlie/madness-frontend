@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+import Header from './header';
 import {addGameToList, searchByTitle} from './api';
 import { Game } from './types';
 
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <form onSubmit={handleSubmit}>
         <input type="text" name="text" value={title} onChange={(e) => setTitle(e.target.value)} />
         <button>Submit!!!</button>
