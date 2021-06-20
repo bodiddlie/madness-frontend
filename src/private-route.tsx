@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Route, Redirect } from 'react-router';
 
-export default function PrivateRoute({ children, ...rest } : {children: JSX.Element}) {
+export default function PrivateRoute({ children, path, ...rest } : {children: JSX.Element, path: String}) {
   //let auth = useAuth();
   return (
     <Route
