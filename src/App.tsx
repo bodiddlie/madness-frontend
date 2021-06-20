@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {searchByTitle} from './api';
+import {addGameToList, searchByTitle} from './api';
 import { Game } from './types';
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
         <div key={g.name}>
           <img src={g.image} alt={g.name} />
           <p>{g.name}</p>
+          <button type="button" onClick={() => addGameToList(g.name)}>Add to List</button>
         </div>
       ))}
     </div>

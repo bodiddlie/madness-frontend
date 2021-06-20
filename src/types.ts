@@ -3,3 +3,11 @@ export interface Game {
   description: string,
   image: string
 };
+
+export interface Entry {
+  PK: string,
+  SK: string,
+  title: string,
+  createdAt: string,
+  updatedAt: string
+}
