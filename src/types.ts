@@ -11,3 +11,8 @@ export interface Entry {
   createdAt: string,
   updatedAt: string
 }
+
+export interface User {
+  email: string,
+  token: string
+}

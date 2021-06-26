@@ -1,13 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router';
+import {useAuth} from './auth';
 
 export default function PrivateRoute({ children, path, ...rest } : {children: JSX.Element, path: String}) {
-  //let auth = useAuth();
+  let auth = useAuth();
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        !!false ? (
+        auth?.user ? (
           children
         ) : (
           <Redirect
