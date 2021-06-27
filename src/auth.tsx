@@ -2,6 +2,7 @@ import React, {createContext, useContext} from 'react';
 
 import {User} from './types';
 import {useLocalStorage} from './use-local-storage';
+import {signup as signUpApi} from './api';
 
 interface AuthContextType {
 	user: User | null,
@@ -24,6 +25,7 @@ function useProvideAuth() {
 
 	const signup = (userEmail: String) => {
 		console.log(`Signing up with email: ${userEmail}`);
+		signUpApi(userEmail);
 		// call api to send email and do nothing?
 		// return promise of call?
 	}
