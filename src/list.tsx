@@ -1,5 +1,8 @@
 import React from 'react';
+import { useAuth } from './auth';
 
 export function List() {
-	return <div>This is the protected list page.</div>
+  const auth = useAuth();
+
+  return <div>This is the protected list page. - {auth?.user?.email}</div>;
 }

@@ -22,5 +22,5 @@ export function signup(email: String): Promise<void> {
 
 export async function login(magicLink: String): Promise<string> {
   const result = await axios.post(`${BASE_URL}/${ENV}/login`, { magicLink });
-  return result.data.token;
+  return result.data;
 }

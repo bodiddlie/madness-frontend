@@ -35,7 +35,7 @@ function useProvideAuth() {
     console.log(`Signing in with magic link: ${magicLink}`);
     try {
       const loggedInUser = await login(magicLink);
-      setUser({ email: 'email@goes.here', token: loggedInUser });
+      setUser(loggedInUser);
       return true;
     } catch (error) {
       console.error(error);
