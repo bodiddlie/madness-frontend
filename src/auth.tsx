@@ -44,13 +44,13 @@ function useProvideAuth() {
   };
 
   const signout = () => {
-    // clear local storage JWT
-    // set user in context to null
+    setUser(null);
   };
 
   return {
     user,
     signup,
     signin,
+    signout,
   };
 }

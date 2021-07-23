@@ -5,8 +5,10 @@ const BASE_URL = 'https://ma62c4x3ej.execute-api.us-east-1.amazonaws.com';
 const ENV = 'dev';
 
 export async function searchByTitle(title: String): Promise<Array<Game>> {
+  const token = getToken();
   const result = await axios.get(`${BASE_URL}/${ENV}/search`, {
     params: { name: title },
+    headers: { Authorization: `Bearer ${token}` },
   });
   return result.data.games;
 }
@@ -23,4 +25,9 @@ export function signup(email: String): Promise<void> {
 export async function login(magicLink: String): Promise<string> {
   const result = await axios.post(`${BASE_URL}/${ENV}/login`, { magicLink });
   return result.data;
+}
+
+function getToken(): String {
+  const item = window.localStorage.getItem('FOCUS_USER');
+  return item ? JSON.parse(item).token : '';
 }
