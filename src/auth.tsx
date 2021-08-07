@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react';
+import { setupInterceptors } from './api';
 
 import { User } from './types';
 import { useLocalStorage } from './use-local-storage';
@@ -8,6 +9,7 @@ interface AuthContextType {
   user: User | null;
   signup(userEmail: String): void;
   signin(magicLink: String): Promise<boolean>;
+  signout(): void;
 }
 
 const authContext = createContext<AuthContextType | null>(null);
@@ -46,6 +48,8 @@ function useProvideAuth() {
   const signout = () => {
     setUser(null);
   };
+
+  setupInterceptors(signout);
 
   return {
     user,

@@ -31,3 +31,17 @@ function getToken(): String {
   const item = window.localStorage.getItem('FOCUS_USER');
   return item ? JSON.parse(item).token : '';
 }
+
+export function setupInterceptors(signout: () => void) {
+  axios.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      const { status } = err.response;
+
+      if (status === 401) {
+        signout();
+      }
+      return Promise.reject(err);
+    }
+  );
+}
