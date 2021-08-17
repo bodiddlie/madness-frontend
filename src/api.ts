@@ -13,8 +13,21 @@ export async function searchByTitle(title: String): Promise<Array<Game>> {
   return result.data.games;
 }
 
-export async function addGameToList(title: String): Promise<Entry> {
-  const result = await axios.post(`${BASE_URL}/${ENV}/games`, { title });
+export async function addGameToList(
+  title: String,
+  boxArt: String
+): Promise<Entry> {
+  const token = getToken();
+  const result = await axios.post(
+    `${BASE_URL}/${ENV}/games`,
+    {
+      title,
+      boxArt,
+    },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   return result.data;
 }
 
