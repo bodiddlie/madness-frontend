@@ -1,11 +1,11 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
 
-import { Game } from './types';
+import { SearchResult } from './types';
 import { searchByTitle, addGameToList } from './api';
 
 export function List() {
   const [search, setSearch] = React.useState('');
-  const [games, setGames] = React.useState<Array<Game>>([]);
+  const [games, setGames] = React.useState<Array<SearchResult>>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);

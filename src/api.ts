@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { Entry, Game } from './types';
+import { Entry, SearchResult } from './types';
 
 const BASE_URL = 'https://ma62c4x3ej.execute-api.us-east-1.amazonaws.com';
 const ENV = 'dev';
 
-export async function searchByTitle(title: String): Promise<Array<Game>> {
+export async function searchByTitle(
+  title: String
+): Promise<Array<SearchResult>> {
   const token = getToken();
   const result = await axios.get(`${BASE_URL}/${ENV}/search`, {
     params: { name: title },
