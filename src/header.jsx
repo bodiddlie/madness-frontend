@@ -10,8 +10,8 @@ export default function Header() {
   return (
     <div className="p-2 flex w-full justify-between bg-blue-600">
       <MdMenu />
-      {auth?.user ? (
-        <button type="button" onClick={() => auth?.signout()}>
+      {auth.user ? (
+        <button type="button" onClick={() => auth.signout()}>
           Log Out
         </button>
       ) : (

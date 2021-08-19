@@ -5,7 +5,7 @@ import PrivateRoute from './private-route';
 import Header from './header';
 import Home from './home';
 import Login from './login';
-import {MagicLink} from './magic-link';
+import { MagicLink } from './magic-link';
 import { List } from './list';
 import { ProvideAuth } from './auth';
 

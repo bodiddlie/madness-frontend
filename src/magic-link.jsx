@@ -12,9 +12,9 @@ export function MagicLink() {
 
   React.useEffect(() => {
     async function login() {
-      if (magicLink && auth && !auth.user) {
+      if (magicLink && !auth.user) {
         try {
-          await auth?.signin(magicLink);
+          await auth.signin(magicLink);
           history.replace({ pathname: '/list' });
         } catch (error) {
           console.error(error);

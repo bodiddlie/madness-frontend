@@ -1,23 +1,22 @@
-import React, { ChangeEvent, SyntheticEvent } from 'react';
+import React from 'react';
 
-import { SearchResult } from './types';
-import { searchByTitle, addGameToList } from './api';
+import { searchByTitle, addGameToList, getList } from './api';
 
 export function List() {
   const [search, setSearch] = React.useState('');
-  const [games, setGames] = React.useState<Array<SearchResult>>([]);
+  const [games, setGames] = React.useState([]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event) => {
     setSearch(event.target.value);
   };
 
-  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = await searchByTitle(search);
     setGames(data);
   };
 
-  const handleClick = async (title: String, boxArt: String) => {
+  const handleClick = async (title, boxArt) => {
     try {
       const data = await addGameToList(title, boxArt);
       setGames([]);
