@@ -1,25 +1,78 @@
 import React from 'react';
 
-import { searchByTitle, addGameToList, getList } from './api';
+import { addGameToList, getList, searchByTitle } from './api';
+import { Search } from './search';
 
+const initialValue = {
+  showSearch: false,
+  searchValue: '',
+  searchResults: [],
+  pile: null,
+};
+
+function reducer(state, action) {
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'SHOW_SEARCH': {
+      return { ...state, showSearch: true };
+    }
+    case 'HIDE_SEARCH': {
+      return { ...state, showSearch: false };
+    }
+    case 'UPDATE_SEARCH_VALUE': {
+      return { ...state, searchValue: payload };
+    }
+    case 'START_SEARCH': {
+      return { ...state, searchResults: null };
+    }
+    case 'SET_RESULTS': {
+      return { ...state, searchResults: payload };
+    }
+    case 'ADD_GAME': {
+      return {
+        ...state,
+        pile: state.pile ? [...state.pile, payload] : [payload],
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
 export function List() {
-  const [search, setSearch] = React.useState('');
-  const [games, setGames] = React.useState([]);
-
-  const handleChange = (event) => {
-    setSearch(event.target.value);
-  };
+  const [state, dispatch] = React.useReducer(reducer, initialValue);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = await searchByTitle(search);
-    setGames(data);
+    dispatch({ type: 'START_SEARCH' });
+    const data = await searchByTitle(state.searchValue);
+    const results = data.map((g) => {
+      return {
+        ...g,
+        isInList:
+          !!state.pile && !!state.pile.find((item) => item.title === g.name),
+      };
+    });
+    dispatch({ type: 'SET_RESULTS', payload: results });
   };
 
-  const handleClick = async (title, boxArt) => {
+  const handleChange = (event) => {
+    dispatch({ type: 'UPDATE_SEARCH_VALUE', payload: event.target.value });
+  };
+
+  const handleFocus = () => {
+    dispatch({ type: 'SHOW_SEARCH' });
+  };
+
+  const handleDone = () => {
+    dispatch({ type: 'HIDE_SEARCH' });
+  };
+
+  const handleAdd = async (title, boxArt) => {
     try {
-      const data = await addGameToList(title, boxArt);
-      setGames([]);
+      const game = await addGameToList(title, boxArt);
+      dispatch({ type: 'ADD_GAME', payload: game });
     } catch (err) {
       console.error(err);
     }
@@ -27,35 +80,23 @@ export function List() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex">
+        <button type="button" className="w-16" onClick={handleDone}>
+          {state.showSearch ? <span>Done</span> : <span>&nbsp;</span>}
+        </button>
         <input
-          type="text"
-          className="border border-blue-600"
-          value={search}
+          type="search"
+          className="flex-1 border border-blue-600"
+          value={state.searchValue}
           onChange={handleChange}
+          onFocus={handleFocus}
         />
-        <button>Search</button>
       </form>
-      <div className="grid gap-3 grid-cols-expando p-2">
-        {games.map((g) => (
-          <div
-            className="flex items-center p-4 bg-white border-gray-200 rounded-lg shadow-sm"
-            key={g.id}
-          >
-            <img className="max-h-24" src={g.image} alt={g.name} />
-            <div className="flex flex-col ml-5 w-full">
-              <h4 className="text-xl font-semibold mb-2">{g.name}</h4>
-              <button
-                type="button"
-                className="py-3 px-6 text-white rounded-lg bg-green-400 shadow-lg self-end"
-                onClick={() => handleClick(g.name, g.image)}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {state.showSearch ? (
+        <Search searchResults={state.searchResults} addGameToList={handleAdd} />
+      ) : (
+        <div>List goes here</div>
+      )}
     </div>
   );
 }
