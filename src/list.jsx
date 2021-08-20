@@ -30,9 +30,17 @@ function reducer(state, action) {
       return { ...state, searchResults: payload };
     }
     case 'ADD_GAME': {
+      const pile = state.pile ? [...state.pile, payload] : [payload];
+      const searchResults = state.searchResults.map((r) => {
+        if (r.id === payload.id) {
+          return { ...r, isInList: true };
+        }
+        return r;
+      });
       return {
         ...state,
-        pile: state.pile ? [...state.pile, payload] : [payload],
+        pile,
+        searchResults,
       };
     }
     default: {
@@ -50,8 +58,7 @@ export function List() {
     const results = data.map((g) => {
       return {
         ...g,
-        isInList:
-          !!state.pile && !!state.pile.find((item) => item.title === g.name),
+        isInList: !!state.pile && !!state.pile.find((item) => item.id === g.id),
       };
     });
     dispatch({ type: 'SET_RESULTS', payload: results });
@@ -69,9 +76,9 @@ export function List() {
     dispatch({ type: 'HIDE_SEARCH' });
   };
 
-  const handleAdd = async (title, boxArt) => {
+  const handleAdd = async (id, title, boxArt) => {
     try {
-      const game = await addGameToList(title, boxArt);
+      const game = await addGameToList(id, title, boxArt);
       dispatch({ type: 'ADD_GAME', payload: game });
     } catch (err) {
       console.error(err);

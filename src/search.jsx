@@ -1,8 +1,8 @@
 import React from 'react';
 
 export function Search({ searchResults, addGameToList }) {
-  const handleClick = async (title, boxArt) => {
-    addGameToList(title, boxArt);
+  const handleClick = async (id, title, boxArt) => {
+    addGameToList(id, title, boxArt);
   };
 
   return (
@@ -29,7 +29,7 @@ export function Search({ searchResults, addGameToList }) {
                   <button
                     type="button"
                     className="py-3 px-6 text-white rounded-lg bg-green-400 shadow-lg self-end"
-                    onClick={() => handleClick(g.name, g.image)}
+                    onClick={() => handleClick(g.id, g.name, g.image)}
                   >
                     Add
                   </button>
