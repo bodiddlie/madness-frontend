@@ -1,5 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
+import { useAuth } from './auth';
 
 export default function Home() {
-  return <div className="w-full bg-hero-image py-20 text-white">Hi</div>;
+  const auth = useAuth();
+
+  return auth.user ? <Redirect to="/list" /> : <Redirect to="/login" />;
 }
