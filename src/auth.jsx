@@ -18,11 +18,8 @@ export function useAuth() {
 function useProvideAuth() {
   const [user, setUser] = useLocalStorage('FOCUS_USER', null);
 
-  const signup = (userEmail) => {
-    console.log(`Signing up with email: ${userEmail}`);
-    signUpApi(userEmail);
-    // call api to send email and do nothing?
-    // return promise of call?
+  const signup = async (userEmail) => {
+    await signUpApi(userEmail);
   };
 
   const signin = async (magicLink) => {

@@ -11,9 +11,12 @@ export default function Header() {
     <div className="p-2 flex w-full justify-between bg-blue-600">
       <MdMenu />
       {auth.user ? (
-        <button type="button" onClick={() => auth.signout()}>
-          Log Out
-        </button>
+        <React.Fragment>
+          <Link to="/list">List</Link>
+          <button type="button" onClick={() => auth.signout()}>
+            Log Out
+          </button>
+        </React.Fragment>
       ) : (
         <Link to="/login">Login</Link>
       )}
