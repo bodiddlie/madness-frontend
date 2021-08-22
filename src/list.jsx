@@ -91,9 +91,9 @@ export function List() {
     dispatch({ type: 'HIDE_SEARCH' });
   };
 
-  const handleAdd = async (id, title, boxArt) => {
+  const handleAdd = async (id, title, boxArt, description) => {
     try {
-      const game = await addGameToList(id, title, boxArt);
+      const game = await addGameToList(id, title, boxArt, description);
       dispatch({ type: 'ADD_GAME', payload: game });
     } catch (err) {
       console.error(err);

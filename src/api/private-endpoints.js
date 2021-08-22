@@ -14,11 +14,12 @@ export async function getList() {
   return result.data.sort((a, b) => b.sortOrder - a.sortOrder);
 }
 
-export async function addGameToList(id, title, boxArt) {
+export async function addGameToList(id, title, boxArt, description) {
   const result = await instance.post('/games', {
     id,
     title,
     boxArt,
+    description,
   });
   return result.data;
 }

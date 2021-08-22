@@ -14,7 +14,7 @@ export function Search({ searchResults, addGame, removeGame, list }) {
             <GameCard
               key={g.id}
               game={g}
-              handleAdd={() => addGame(g.id, g.title, g.boxArt)}
+              handleAdd={() => addGame(g.id, g.title, g.boxArt, g.description)}
               handleRemove={() => removeGame(g.id)}
               isInList={isInList(list, g.id)}
             />
