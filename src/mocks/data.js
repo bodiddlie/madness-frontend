@@ -39,3 +39,14 @@ export const search = [
     complted: false,
   },
 ];
+
+export const userProfiles = {
+  'test@test.com': {
+    email: 'test@test.com',
+    isSorted: false,
+  },
+  'sorted@test.com': {
+    email: 'sorted@test.com',
+    isSorted: true,
+  },
+};
