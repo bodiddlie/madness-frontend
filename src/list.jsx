@@ -117,6 +117,7 @@ export function List() {
         </button>
         <input
           type="search"
+          name="search"
           className="flex-1 border border-blue-600"
           value={state.searchValue}
           onChange={handleChange}
