@@ -4,6 +4,7 @@ import {
   searchByTitle,
   getList,
   addGameToList,
+  removeGame,
 } from './private-endpoints';
 
 export {
@@ -13,4 +14,5 @@ export {
   getList,
   addGameToList,
   setupInterceptors,
+  removeGame,
 };

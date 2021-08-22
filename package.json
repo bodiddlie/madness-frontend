@@ -47,7 +47,11 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "^9.8.6",
+    "msw": "^0.34.0",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

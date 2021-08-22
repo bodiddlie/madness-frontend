@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { addGameToList, getList, searchByTitle } from './api';
+import { addGameToList, getList, searchByTitle, removeGame } from './api';
 import { Search } from './search';
+import { GameCard } from './game-card';
 
 const initialValue = {
   showSearch: false,
@@ -18,7 +19,12 @@ function reducer(state, action) {
       return { ...state, showSearch: true };
     }
     case 'HIDE_SEARCH': {
-      return { ...state, showSearch: false };
+      return {
+        ...state,
+        showSearch: false,
+        searchResults: [],
+        searchValue: '',
+      };
     }
     case 'UPDATE_SEARCH_VALUE': {
       return { ...state, searchValue: payload };
@@ -31,17 +37,20 @@ function reducer(state, action) {
     }
     case 'ADD_GAME': {
       const pile = state.pile ? [...state.pile, payload] : [payload];
-      const searchResults = state.searchResults.map((r) => {
-        if (r.id === payload.id) {
-          return { ...r, isInList: true };
-        }
-        return r;
-      });
       return {
         ...state,
         pile,
-        searchResults,
       };
+    }
+    case 'REMOVE_GAME': {
+      const pile = state.pile.filter((g) => g.id !== payload);
+      return { ...state, pile };
+    }
+    case 'LOAD_PILE': {
+      return { ...state, pile: null };
+    }
+    case 'SET_PILE': {
+      return { ...state, pile: payload };
     }
     default: {
       return state;
@@ -51,10 +60,16 @@ function reducer(state, action) {
 export function List() {
   const [state, dispatch] = React.useReducer(reducer, initialValue);
 
+  React.useEffect(() => {
+    dispatch({ type: 'LOAD_PILE' });
+    getList().then((pile) => dispatch({ type: 'SET_PILE', payload: pile }));
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch({ type: 'START_SEARCH' });
     const data = await searchByTitle(state.searchValue);
+    console.log(data);
     const results = data.map((g) => {
       return {
         ...g,
@@ -85,6 +100,15 @@ export function List() {
     }
   };
 
+  const handleRemove = async (id) => {
+    try {
+      await removeGame(id);
+      dispatch({ type: 'REMOVE_GAME', payload: id });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex">
@@ -100,10 +124,34 @@ export function List() {
         />
       </form>
       {state.showSearch ? (
-        <Search searchResults={state.searchResults} addGameToList={handleAdd} />
+        <Search
+          searchResults={state.searchResults}
+          addGame={handleAdd}
+          removeGame={handleRemove}
+          list={state.pile}
+        />
       ) : (
-        <div>List goes here</div>
+        <React.Fragment>
+          {state.pile ? (
+            <div className="grid gap-3 grid-cols-expando p-2">
+              {state.pile.map((g) => (
+                <GameCard
+                  game={g}
+                  key={g.id}
+                  handleRemove={() => handleRemove(g.id)}
+                  isInList={isInList(state.pile, g.id)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </React.Fragment>
       )}
     </div>
   );
+}
+
+function isInList(list, id) {
+  return !!list.find((g) => g.id === id);
 }

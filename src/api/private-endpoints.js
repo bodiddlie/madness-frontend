@@ -23,6 +23,11 @@ export async function addGameToList(id, title, boxArt) {
   return result.data;
 }
 
+export async function removeGame(id) {
+  await instance.delete(`/games/${id}`);
+  return;
+}
+
 function getToken() {
   const storageItem = window.localStorage.getItem('FOCUS_USER');
   return storageItem ? JSON.parse(storageItem).token : '';
