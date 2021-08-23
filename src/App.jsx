@@ -8,6 +8,7 @@ import Login from './login';
 import { MagicLink } from './magic-link';
 import { List } from './list';
 import { ProvideAuth } from './auth';
+import { Focus } from './focus';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
               </Route>
               <PrivateRoute path="/list">
                 <List />
+              </PrivateRoute>
+              <PrivateRoute path="/focus">
+                <Focus />
               </PrivateRoute>
             </Switch>
           </div>

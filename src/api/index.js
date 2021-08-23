@@ -1,9 +1,12 @@
 import { signup, login } from './open-endpoints';
 import {
   setupInterceptors,
+  getUserProfile,
   searchByTitle,
   getList,
-  addGameToList,
+  getTopGame,
+  addGame,
+  completeGame,
   removeGame,
 } from './private-endpoints';
 
@@ -12,7 +15,10 @@ export {
   login,
   searchByTitle,
   getList,
-  addGameToList,
+  addGame,
   setupInterceptors,
   removeGame,
+  getUserProfile,
+  getTopGame,
+  completeGame,
 };

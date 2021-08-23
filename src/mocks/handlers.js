@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 import { BASE_URL, ENV } from '../api/helpers';
-import { pile, search, userProfiles } from './data';
+import { pile, search, userProfile } from './data';
 
 const usedPile = [...pile];
 
@@ -10,6 +10,7 @@ export const handlers = [
   rest.post(`${BASE_URL}/${ENV}/signup`, (req, res, ctx) => {
     return res(ctx.status(200));
   }),
+
   rest.post(`${BASE_URL}/${ENV}/login`, (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -35,6 +36,7 @@ export const handlers = [
   // GET TOP GAME HANDLER
   rest.get(`${BASE_URL}/${ENV}/topgame`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(usedPile.shift()));
+    // return res(ctx.status(200), ctx.json(null));
   }),
 
   rest.patch(`${BASE_URL}/${ENV}/games/:id`, (req, res, ctx) => {
@@ -46,7 +48,7 @@ export const handlers = [
   }),
 
   // USER PROFILE HANDLERS
-  rest.get(`${BASE_URL}/${ENV}/profile/:email`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(userProfiles[req.params.email]));
+  rest.get(`${BASE_URL}/${ENV}/profile`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(userProfile));
   }),
 ];

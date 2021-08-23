@@ -40,13 +40,7 @@ export const search = [
   },
 ];
 
-export const userProfiles = {
-  'test@test.com': {
-    email: 'test@test.com',
-    isSorted: false,
-  },
-  'sorted@test.com': {
-    email: 'sorted@test.com',
-    isSorted: true,
-  },
+export const userProfile = {
+  email: 'test@test.com',
+  isSorted: false,
 };

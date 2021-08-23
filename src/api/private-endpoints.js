@@ -14,7 +14,17 @@ export async function getList() {
   return result.data.sort((a, b) => b.sortOrder - a.sortOrder);
 }
 
-export async function addGameToList(id, title, boxArt, description) {
+export async function getUserProfile() {
+  const result = await instance.get(`/profile`);
+  return result.data;
+}
+
+export async function getTopGame() {
+  const result = await instance.get('/topgame');
+  return result.data;
+}
+
+export async function addGame(id, title, boxArt, description) {
   const result = await instance.post('/games', {
     id,
     title,
@@ -22,6 +32,11 @@ export async function addGameToList(id, title, boxArt, description) {
     description,
   });
   return result.data;
+}
+
+export async function completeGame(id) {
+  await instance.patch(`/games/${id}`, { complete: true });
+  return;
 }
 
 export async function removeGame(id) {

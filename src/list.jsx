@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { addGameToList, getList, searchByTitle, removeGame } from './api';
+import { addGame, getList, searchByTitle, removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
 
@@ -93,7 +93,7 @@ export function List() {
 
   const handleAdd = async (id, title, boxArt, description) => {
     try {
-      const game = await addGameToList(id, title, boxArt, description);
+      const game = await addGame(id, title, boxArt, description);
       dispatch({ type: 'ADD_GAME', payload: game });
     } catch (err) {
       console.error(err);
