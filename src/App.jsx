@@ -14,27 +14,25 @@ function App() {
   return (
     <ProvideAuth>
       <BrowserRouter>
-        <div>
+        <div className="flex flex-col min-h-screen">
           <Header />
-          <div>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/magic-link">
-                <MagicLink />
-              </Route>
-              <PrivateRoute path="/list">
-                <List />
-              </PrivateRoute>
-              <PrivateRoute path="/focus">
-                <Focus />
-              </PrivateRoute>
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/magic-link">
+              <MagicLink />
+            </Route>
+            <PrivateRoute path="/list">
+              <List />
+            </PrivateRoute>
+            <PrivateRoute path="/focus">
+              <Focus />
+            </PrivateRoute>
+          </Switch>
         </div>
       </BrowserRouter>
     </ProvideAuth>

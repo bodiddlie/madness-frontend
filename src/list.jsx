@@ -110,7 +110,7 @@ export function List() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col flex-grow">
       <form onSubmit={handleSubmit} className="flex">
         <button type="button" className="w-16" onClick={handleDone}>
           {state.showSearch ? <span>Done</span> : <span>&nbsp;</span>}
@@ -134,16 +134,21 @@ export function List() {
       ) : (
         <React.Fragment>
           {state.pile ? (
-            <div className="grid gap-3 grid-cols-expando p-2">
-              {state.pile.map((g) => (
-                <GameCard
-                  game={g}
-                  key={g.id}
-                  handleRemove={() => handleRemove(g.id)}
-                  isInList={isInList(state.pile, g.id)}
-                />
-              ))}
-            </div>
+            <React.Fragment>
+              <div className="grid gap-3 grid-cols-expando p-2 pb-16 flex-grow">
+                {state.pile.map((g) => (
+                  <GameCard
+                    game={g}
+                    key={g.id}
+                    handleRemove={() => handleRemove(g.id)}
+                    isInList={isInList(state.pile, g.id)}
+                  />
+                ))}
+              </div>
+              <div className="bg-purple-700 h-12 fixed bottom-0 w-full">
+                Footer
+              </div>
+            </React.Fragment>
           ) : (
             <div>Loading...</div>
           )}
