@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { MdMenu } from 'react-icons/md';
 
 import { useAuth } from './auth';
@@ -12,13 +11,12 @@ export default function Header() {
       <MdMenu />
       {auth.user ? (
         <React.Fragment>
-          <Link to="/list">List</Link>
           <button type="button" onClick={() => auth.signout()}>
             Log Out
           </button>
         </React.Fragment>
       ) : (
-        <Link to="/login">Login</Link>
+        <div>Login</div>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from './auth';
 
-export default function Login() {
+export function Login() {
   const [email, setEmail] = React.useState('');
   const [showSuccess, setShowSuccess] = React.useState(false);
   const auth = useAuth();

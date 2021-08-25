@@ -1,11 +1,14 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import { useAuth } from './auth';
 import { getUserProfile } from './api';
+import { FocusContainer } from './focus-container';
+import { Login } from './login';
+import { MagicLink } from './magic-link';
 
-export default function Home() {
+export default function Home({ magicLink }) {
   const [profile, setProfile] = React.useState(null);
+  const [loggingIn, setLoggingIn] = React.useState(!!magicLink);
   const auth = useAuth();
 
   React.useEffect(() => {
@@ -16,23 +19,21 @@ export default function Home() {
     }
   }, [auth.user]);
 
-  if (!auth.user) {
-    return <Redirect to="/login" />;
+  const handleLogin = React.useCallback(() => {
+    setLoggingIn(false);
+  }, []);
+
+  if (loggingIn) {
+    return <MagicLink magicLink={magicLink} onLogin={handleLogin} />;
+  }
+
+  if (!auth.user && (!magicLink || !loggingIn)) {
+    return <Login />;
   }
 
   return (
     <div>
-      {!profile ? (
-        <div>Loading...</div>
-      ) : (
-        <React.Fragment>
-          {profile.isSorted ? (
-            <Redirect to="/focus" />
-          ) : (
-            <Redirect to="/list" />
-          )}
-        </React.Fragment>
-      )}
+      {!profile ? <div>Loading...</div> : <FocusContainer profile={profile} />}
     </div>
   );
 }

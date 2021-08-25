@@ -1,33 +1,26 @@
 import React from 'react';
-import { useLocation, useHistory } from 'react-router';
 
 import { useAuth } from './auth';
 
-export function MagicLink() {
-  const history = useHistory();
-  const query = useQuery();
+export function MagicLink({ magicLink, onLogin }) {
   const auth = useAuth();
-
-  const magicLink = query.get('magicLink');
 
   React.useEffect(() => {
     async function login() {
       if (magicLink && !auth.user) {
         try {
           await auth.signin(magicLink);
-          history.replace({ pathname: '/list' });
+          window.history.replaceState({}, document.title, '/');
+          onLogin();
         } catch (error) {
           console.error(error);
-          history.replace({ pathname: '/login' });
+          window.history.replaceState({}, document.title, '/login');
+          onLogin();
         }
       }
     }
     login();
-  }, [magicLink, auth, history]);
+  }, [magicLink, auth, onLogin]);
 
   return <div>Logging in...</div>;
-}
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
 }

@@ -1,40 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import queryString from 'query-string';
 
-import PrivateRoute from './private-route';
 import Header from './header';
 import Home from './home';
-import Login from './login';
-import { MagicLink } from './magic-link';
-import { List } from './list';
 import { ProvideAuth } from './auth';
-import { Focus } from './focus';
+
+const urlQueryString = window.location.search;
+const { magicLink } = queryString.parse(urlQueryString);
 
 function App() {
   return (
     <ProvideAuth>
-      <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/magic-link">
-              <MagicLink />
-            </Route>
-            <PrivateRoute path="/list">
-              <List />
-            </PrivateRoute>
-            <PrivateRoute path="/focus">
-              <Focus />
-            </PrivateRoute>
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <Home magicLink={magicLink} />
+      </div>
     </ProvideAuth>
   );
 }

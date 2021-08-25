@@ -57,7 +57,7 @@ function reducer(state, action) {
     }
   }
 }
-export function List() {
+export function List({ onBracketClick }) {
   const [state, dispatch] = React.useReducer(reducer, initialValue);
 
   React.useEffect(() => {
@@ -147,6 +147,9 @@ export function List() {
               </div>
               <div className="bg-purple-700 h-12 fixed bottom-0 w-full">
                 Footer
+                <button type="button" onClick={onBracketClick}>
+                  Bracket
+                </button>
               </div>
             </React.Fragment>
           ) : (

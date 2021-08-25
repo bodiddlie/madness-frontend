@@ -1,18 +1,16 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import { getTopGame, completeGame } from './api';
 
 export function Focus() {
   const [game, setGame] = React.useState(null);
-  const [redirect, setRedirect] = React.useState(false);
 
   function loadGame() {
     setGame(null);
     getTopGame().then((g) => {
       setGame(g);
       if (!g) {
-        setRedirect(true);
+        //TODO: find way to reset back to list state
       }
     });
   }
@@ -28,21 +26,15 @@ export function Focus() {
 
   return (
     <div>
-      {redirect ? (
-        <Redirect to="/list" />
+      {game ? (
+        <div>
+          {game.title}
+          <button type="button" onClick={handleClick}>
+            Complete
+          </button>
+        </div>
       ) : (
-        <React.Fragment>
-          {game ? (
-            <div>
-              {game.title}
-              <button type="button" onClick={handleClick}>
-                Complete
-              </button>
-            </div>
-          ) : (
-            <div>Loading...</div>
-          )}
-        </React.Fragment>
+        <div>Loading...</div>
       )}
     </div>
   );
