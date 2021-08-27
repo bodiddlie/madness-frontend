@@ -109,6 +109,10 @@ export function List({ onBracketClick }) {
     }
   };
 
+  const handleBracketClick = () => {
+    onBracketClick(state.pile);
+  };
+
   return (
     <div className="flex flex-col flex-grow">
       <form onSubmit={handleSubmit} className="flex">
@@ -147,7 +151,7 @@ export function List({ onBracketClick }) {
               </div>
               <div className="bg-purple-700 h-12 fixed bottom-0 w-full">
                 Footer
-                <button type="button" onClick={onBracketClick}>
+                <button type="button" onClick={handleBracketClick}>
                   Bracket
                 </button>
               </div>

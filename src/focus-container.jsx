@@ -6,15 +6,17 @@ import { List } from './list';
 
 export function FocusContainer({ profile }) {
   const [showBracket, setShowBracket] = React.useState(false);
+  const [pile, setPile] = React.useState([]);
 
-  const handleBracketClick = () => {
+  const handleBracketClick = (games) => {
+    setPile(games);
     setShowBracket(true);
   };
 
   if (profile.isSorted) {
     return <Focus />;
   } else if (showBracket) {
-    return <Bracket />;
+    return <Bracket pile={pile} />;
   } else {
     return <List onBracketClick={handleBracketClick} />;
   }
