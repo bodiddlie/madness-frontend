@@ -32,8 +32,8 @@ export default function Home({ magicLink }) {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {!profile ? <div>Loading...</div> : <FocusContainer profile={profile} />}
-    </div>
+    </React.Fragment>
   );
 }

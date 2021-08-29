@@ -68,15 +68,18 @@ export function Bracket({ pile }) {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {!!first && !!second ? (
-        <div>
-          <button onClick={() => pick(first, second)}>{first.title}</button>
-          <br />
-          <button onClick={() => pick(second, first)}>{second.title}</button>
+        <div className="flex flex-col flex-grow justify-around">
+          <button className="flex-grow" onClick={() => pick(first, second)}>
+            {first.title}
+          </button>
+          <button className="flex-grow" onClick={() => pick(second, first)}>
+            {second.title}
+          </button>
         </div>
       ) : null}
-    </div>
+    </React.Fragment>
   );
 }
 

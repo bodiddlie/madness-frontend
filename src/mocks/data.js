@@ -17,6 +17,33 @@ export const pile = [
     description: 'Lorem ipsum dolar sit amet',
     complted: false,
   },
+  {
+    id: 11111,
+    title: 'Dark Souls',
+    boxArt:
+      'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
+    sortOrder: 3,
+    description: 'Lorem ipsum dolar sit amet',
+    complted: false,
+  },
+  {
+    id: 22222,
+    title: 'Jedi Fallen Order',
+    boxArt:
+      'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
+    sortOrder: 4,
+    description: 'Lorem ipsum dolar sit amet',
+    complted: false,
+  },
+  {
+    id: 33333,
+    title: 'The Surge',
+    boxArt:
+      'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
+    sortOrder: 5,
+    description: 'Lorem ipsum dolar sit amet',
+    complted: false,
+  },
 ];
 
 export const search = [
