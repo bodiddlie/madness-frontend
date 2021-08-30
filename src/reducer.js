@@ -7,11 +7,14 @@ export const ADD_GAME = 'ADD_GAME';
 export const REMOVE_GAME = 'REMOVE_GAME';
 export const LOAD_PILE = 'LOAD_PILE';
 export const SET_PILE = 'SET_PILE';
+export const SHOW_BRACKET = 'SHOW_BRACKET';
+export const SET_SORTED = 'SET_SORTED';
 
 export const initialValue = {
   showSearch: false,
   searchValue: '',
   searchResults: [],
+  showBracket: false,
   pile: null,
 };
 
@@ -55,6 +58,12 @@ export function reducer(state, action) {
     }
     case SET_PILE: {
       return { ...state, pile: payload };
+    }
+    case SHOW_BRACKET: {
+      return { ...state, showBracket: true };
+    }
+    case SET_SORTED: {
+      return { ...state, isSorted: true };
     }
     default: {
       return state;

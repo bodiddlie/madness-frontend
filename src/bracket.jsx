@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { updateSort } from './api';
+
+import { Dispatch } from './focus-container';
+import { SET_SORTED } from './reducer';
 
 export function Bracket({ pile }) {
   const [remaining, setRemaining] = useState([]);
@@ -8,6 +12,8 @@ export function Bracket({ pile }) {
   const [first, setFirst] = useState(null);
   const [second, setSecond] = useState(null);
   const [gold, setGold] = useState(null);
+
+  const dispatch = React.useContext(Dispatch);
 
   useEffect(() => {
     let gamesLeft = [...pile];
@@ -54,15 +60,20 @@ export function Bracket({ pile }) {
         setSecond(two);
         setLosers(rem);
       } else {
-        const s = !!gold
-          ? [...sorted, l, w, gold].reverse()
-          : [...sorted, l, w].reverse();
+        const s = (
+          !!gold
+            ? [...sorted, l, w, gold].reverse()
+            : [...sorted, l, w].reverse()
+        ).map((g, ind) => {
+          return { ...g, sortOrder: ind };
+        });
         setSorted(s);
         setFirst(null);
         setSecond(null);
-        console.log('sorted: ');
         console.table(s);
-        // dispatch({ type: 'sort', sorted: s });
+        updateSort(s).then(() => {
+          dispatch({ type: SET_SORTED });
+        });
       }
     }
   }

@@ -44,6 +44,11 @@ export async function removeGame(id) {
   return;
 }
 
+export async function updateSort(games) {
+  await instance.put(`/games/sort`, { games });
+  return;
+}
+
 function getToken() {
   const storageItem = window.localStorage.getItem('FOCUS_USER');
   return storageItem ? JSON.parse(storageItem).token : '';

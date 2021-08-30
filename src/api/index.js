@@ -8,6 +8,7 @@ import {
   addGame,
   completeGame,
   removeGame,
+  updateSort,
 } from './private-endpoints';
 
 export {
@@ -21,4 +22,5 @@ export {
   getUserProfile,
   getTopGame,
   completeGame,
+  updateSort,
 };

@@ -51,4 +51,8 @@ export const handlers = [
   rest.get(`${BASE_URL}/${ENV}/profile`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(userProfile));
   }),
+
+  rest.put(`${BASE_URL}/${ENV}/games/sort`, (req, res, ctx) => {
+    return res(ctx.status(204));
+  }),
 ];
