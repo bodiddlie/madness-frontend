@@ -3,71 +3,31 @@ import React from 'react';
 import { addGame, getList, searchByTitle, removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
+import { Dispatch } from './focus-container';
 
-const initialValue = {
-  showSearch: false,
-  searchValue: '',
-  searchResults: [],
-  pile: null,
-};
+import {
+  LOAD_PILE,
+  SET_PILE,
+  START_SEARCH,
+  SET_RESULTS,
+  UPDATE_SEARCH_VALUE,
+  SHOW_SEARCH,
+  HIDE_SEARCH,
+  ADD_GAME,
+  REMOVE_GAME,
+} from './reducer';
 
-function reducer(state, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case 'SHOW_SEARCH': {
-      return { ...state, showSearch: true };
-    }
-    case 'HIDE_SEARCH': {
-      return {
-        ...state,
-        showSearch: false,
-        searchResults: [],
-        searchValue: '',
-      };
-    }
-    case 'UPDATE_SEARCH_VALUE': {
-      return { ...state, searchValue: payload };
-    }
-    case 'START_SEARCH': {
-      return { ...state, searchResults: null };
-    }
-    case 'SET_RESULTS': {
-      return { ...state, searchResults: payload };
-    }
-    case 'ADD_GAME': {
-      const pile = state.pile ? [...state.pile, payload] : [payload];
-      return {
-        ...state,
-        pile,
-      };
-    }
-    case 'REMOVE_GAME': {
-      const pile = state.pile.filter((g) => g.id !== payload);
-      return { ...state, pile };
-    }
-    case 'LOAD_PILE': {
-      return { ...state, pile: null };
-    }
-    case 'SET_PILE': {
-      return { ...state, pile: payload };
-    }
-    default: {
-      return state;
-    }
-  }
-}
-export function List({ onBracketClick }) {
-  const [state, dispatch] = React.useReducer(reducer, initialValue);
+export function List({ onBracketClick, state }) {
+  const dispatch = React.useContext(Dispatch);
 
   React.useEffect(() => {
-    dispatch({ type: 'LOAD_PILE' });
-    getList().then((pile) => dispatch({ type: 'SET_PILE', payload: pile }));
-  }, []);
+    dispatch({ type: LOAD_PILE });
+    getList().then((pile) => dispatch({ type: SET_PILE, payload: pile }));
+  }, [dispatch]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch({ type: 'START_SEARCH' });
+    dispatch({ type: START_SEARCH });
     const data = await searchByTitle(state.searchValue);
     console.log(data);
     const results = data.map((g) => {
@@ -76,25 +36,25 @@ export function List({ onBracketClick }) {
         isInList: !!state.pile && !!state.pile.find((item) => item.id === g.id),
       };
     });
-    dispatch({ type: 'SET_RESULTS', payload: results });
+    dispatch({ type: SET_RESULTS, payload: results });
   };
 
   const handleChange = (event) => {
-    dispatch({ type: 'UPDATE_SEARCH_VALUE', payload: event.target.value });
+    dispatch({ type: UPDATE_SEARCH_VALUE, payload: event.target.value });
   };
 
   const handleFocus = () => {
-    dispatch({ type: 'SHOW_SEARCH' });
+    dispatch({ type: SHOW_SEARCH });
   };
 
   const handleDone = () => {
-    dispatch({ type: 'HIDE_SEARCH' });
+    dispatch({ type: HIDE_SEARCH });
   };
 
   const handleAdd = async (id, title, boxArt, description) => {
     try {
       const game = await addGame(id, title, boxArt, description);
-      dispatch({ type: 'ADD_GAME', payload: game });
+      dispatch({ type: ADD_GAME, payload: game });
     } catch (err) {
       console.error(err);
     }
@@ -103,7 +63,7 @@ export function List({ onBracketClick }) {
   const handleRemove = async (id) => {
     try {
       await removeGame(id);
-      dispatch({ type: 'REMOVE_GAME', payload: id });
+      dispatch({ type: REMOVE_GAME, payload: id });
     } catch (err) {
       console.error(err);
     }

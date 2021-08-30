@@ -15,7 +15,7 @@ export const pile = [
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 2,
     description: 'Lorem ipsum dolar sit amet',
-    complted: false,
+    completed: false,
   },
   {
     id: 11111,
@@ -24,7 +24,7 @@ export const pile = [
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 3,
     description: 'Lorem ipsum dolar sit amet',
-    complted: false,
+    completed: false,
   },
   {
     id: 22222,
@@ -33,7 +33,7 @@ export const pile = [
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 4,
     description: 'Lorem ipsum dolar sit amet',
-    complted: false,
+    completed: false,
   },
   {
     id: 33333,
@@ -42,7 +42,7 @@ export const pile = [
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 5,
     description: 'Lorem ipsum dolar sit amet',
-    complted: false,
+    completed: false,
   },
 ];
 
@@ -63,7 +63,7 @@ export const search = [
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 2,
     description: 'Demons and shit',
-    complted: false,
+    completed: false,
   },
 ];
 
