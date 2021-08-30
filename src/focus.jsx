@@ -1,23 +1,26 @@
 import React from 'react';
 
 import { getTopGame, completeGame } from './api';
+import { Dispatch } from './focus-container';
+import { SET_UNSORTED } from './reducer';
 
 export function Focus() {
   const [game, setGame] = React.useState(null);
+  const dispatch = React.useContext(Dispatch);
 
-  function loadGame() {
+  const loadGame = React.useCallback(() => {
     setGame(null);
     getTopGame().then((g) => {
       setGame(g);
       if (!g) {
-        //TODO: find way to reset back to list state
+        dispatch({ type: SET_UNSORTED });
       }
     });
-  }
+  }, [dispatch]);
 
   React.useEffect(() => {
     loadGame();
-  }, []);
+  }, [loadGame]);
 
   const handleClick = async () => {
     await completeGame(game.id);

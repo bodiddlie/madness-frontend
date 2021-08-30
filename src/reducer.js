@@ -9,6 +9,7 @@ export const LOAD_PILE = 'LOAD_PILE';
 export const SET_PILE = 'SET_PILE';
 export const SHOW_BRACKET = 'SHOW_BRACKET';
 export const SET_SORTED = 'SET_SORTED';
+export const SET_UNSORTED = 'SET_UNSORTED';
 
 export const initialValue = {
   showSearch: false,
@@ -63,7 +64,10 @@ export function reducer(state, action) {
       return { ...state, showBracket: true };
     }
     case SET_SORTED: {
-      return { ...state, isSorted: true };
+      return { ...state, isSorted: true, showBracket: false };
+    }
+    case SET_UNSORTED: {
+      return { ...state, isSorted: false };
     }
     default: {
       return state;
