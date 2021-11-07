@@ -100,7 +100,7 @@ export function List({ onBracketClick, state }) {
           <input
             type="search"
             name="search"
-            className="flex-1 p-1 rounded-none bg-white"
+            className="flex-1 p-1 rounded-none bg-white appearance-none"
             placeholder="Find a game..."
             value={state.searchValue}
             onChange={handleChange}
