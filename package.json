@@ -53,5 +53,12 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
   }
+
 }
