@@ -73,16 +73,29 @@ export function List({ onBracketClick, state }) {
     onBracketClick(state.pile);
   };
 
+  const handleBarButton = () => {
+    if (state.showSearch) {
+      handleDone();
+    } else {
+      handleBracketClick();
+    }
+  };
+
   return (
     <div className="flex flex-col flex-grow">
       <form onSubmit={handleSubmit} className="flex">
-        <button type="button" className="w-16" onClick={handleDone}>
-          {state.showSearch ? <span>Done</span> : <span>&nbsp;</span>}
+        <button type="button" className="w-16" onClick={handleBarButton}>
+          {state.showSearch ? (
+            <span>Back to List</span>
+          ) : (
+            <span>Start Bracket</span>
+          )}
         </button>
         <input
           type="search"
           name="search"
           className="flex-1 border border-blue-600 p-1"
+          placeholder="Find a game..."
           value={state.searchValue}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -108,12 +121,6 @@ export function List({ onBracketClick, state }) {
                     isInList={isInList(state.pile, g.id)}
                   />
                 ))}
-              </div>
-              <div className="bg-purple-700 h-12 fixed bottom-0 w-full">
-                Footer
-                <button type="button" onClick={handleBracketClick}>
-                  Bracket
-                </button>
               </div>
             </React.Fragment>
           ) : (
