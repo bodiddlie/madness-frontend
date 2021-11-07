@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdSearch } from 'react-icons/md';
 
 import { addGame, getList, searchByTitle, removeGame } from './api';
 import { Search } from './search';
@@ -84,22 +85,34 @@ export function List({ onBracketClick, state }) {
   return (
     <div className="flex flex-col flex-grow">
       <form onSubmit={handleSubmit} className="flex">
-        <button type="button" className="w-16" onClick={handleBarButton}>
+        <button
+          type="button"
+          className="w-20 p-1 bg-purple-700"
+          onClick={handleBarButton}
+        >
           {state.showSearch ? (
             <span>Back to List</span>
           ) : (
             <span>Start Bracket</span>
           )}
         </button>
-        <input
-          type="search"
-          name="search"
-          className="flex-1 border border-blue-600 p-1"
-          placeholder="Find a game..."
-          value={state.searchValue}
-          onChange={handleChange}
-          onFocus={handleFocus}
-        />
+        <div className="flex bg-white flex-1">
+          <input
+            type="search"
+            name="search"
+            className="flex-1 p-1"
+            placeholder="Find a game..."
+            value={state.searchValue}
+            onChange={handleChange}
+            onFocus={handleFocus}
+          />
+          <button
+            type="submit"
+            className="w-10 flex justify-center items-center text-2xl"
+          >
+            <MdSearch />
+          </button>
+        </div>
       </form>
       {state.showSearch ? (
         <Search
