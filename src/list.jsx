@@ -85,17 +85,6 @@ export function List({ onBracketClick, state }) {
   return (
     <div className="flex flex-col flex-grow">
       <form onSubmit={handleSubmit} className="flex">
-        <button
-          type="button"
-          className="w-20 p-1 bg-purple-700"
-          onClick={handleBarButton}
-        >
-          {state.showSearch ? (
-            <span>Back to List</span>
-          ) : (
-            <span>Start Bracket</span>
-          )}
-        </button>
         <div className="flex bg-white flex-1">
           <input
             type="search"
@@ -113,6 +102,20 @@ export function List({ onBracketClick, state }) {
             <MdSearch />
           </button>
         </div>
+        <button
+          type="button"
+          className="w-20 p-1 bg-medium-spring-green disabled:bg-gray-500"
+          onClick={handleBarButton}
+          disabled={
+            (!state.pile || state.pile.length === 0) && !state.showSearch
+          }
+        >
+          {state.showSearch ? (
+            <span>Back to List</span>
+          ) : (
+            <span>Start Bracket</span>
+          )}
+        </button>
       </form>
       {state.showSearch ? (
         <Search
