@@ -84,7 +84,7 @@ export function List({ onBracketClick, state }) {
 
   return (
     <div className="flex flex-col flex-grow">
-      <form onSubmit={handleSubmit} className="flex">
+      <form onSubmit={handleSubmit} className="flex pr-2">
         <div className="flex bg-white flex-1">
           <input
             type="search"
@@ -104,7 +104,7 @@ export function List({ onBracketClick, state }) {
         </div>
         <button
           type="button"
-          className="w-20 p-1 bg-medium-spring-green disabled:bg-gray-500"
+          className="w-20 p-1 bg-blue-400 rounded border border-blue-400 disabled:bg-gray-200"
           onClick={handleBarButton}
           disabled={
             (!state.pile || state.pile.length === 0) && !state.showSearch
@@ -128,7 +128,7 @@ export function List({ onBracketClick, state }) {
         <React.Fragment>
           {state.pile ? (
             <React.Fragment>
-              <div className="grid gap-3 grid-cols-expando p-2 pb-16 flex-grow">
+              <div className="grid gap-3 grid-cols-expando p-2 pb-16">
                 {state.pile.map((g) => (
                   <GameCard
                     game={g}

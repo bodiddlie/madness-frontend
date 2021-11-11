@@ -6,7 +6,7 @@ export default function Header() {
   const auth = useAuth();
 
   return (
-    <div className="p-2 flex w-full justify-end bg-pewter-blue">
+    <div className="p-2 flex w-full justify-end bg-pale-cream">
       {auth.user ? (
         <React.Fragment>
           <button type="button" onClick={() => auth.signout()}>

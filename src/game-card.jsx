@@ -3,7 +3,7 @@ import React from 'react';
 export function GameCard({ game, handleAdd, handleRemove, isInList }) {
   return (
     <div
-      className="flex items-center p-4 bg-white border-gray-200 rounded-lg shadow-sm"
+      className="flex items-center p-4 bg-white border-2 border-gray-400 rounded-lg shadow-sm"
       key={game.id}
     >
       <img className="max-h-24" src={game.boxArt} alt={game.title} />

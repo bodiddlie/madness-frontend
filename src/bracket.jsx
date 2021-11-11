@@ -78,22 +78,36 @@ export function Bracket({ pile }) {
     }
   }
 
+  console.log(first);
   return (
     <React.Fragment>
       {!!first && !!second ? (
-        <div className="flex flex-col flex-grow justify-around">
-          <button className="flex-grow" onClick={() => pick(first, second)}>
-            {first.title}
-          </button>
-          <button className="flex-grow" onClick={() => pick(second, first)}>
-            {second.title}
-          </button>
+        <div className="flex flex-col flex-grow">
+          <GameButton game={first} handleChoice={() => pick(first, second)} />
+          <div className="text-center bg-blue-800 text-white font-extrabold">
+            VS
+          </div>
+          <GameButton game={second} handleChoice={() => pick(second, first)} />
         </div>
       ) : null}
     </React.Fragment>
   );
 }
 
+function GameButton({ game, handleChoice }) {
+  return (
+    <button
+      className="flex-grow flex items-center p-4 border-2 border-blue-800 rounded-lg m-1 bg-white"
+      onClick={handleChoice}
+    >
+      <img className="max-h-24" src={game.boxArt} alt={game.title} />
+      <div className="flex flex-col ml-5 w-full">
+        <h4 className="text-xl font-semibold mb-2">{game.title}</h4>
+        <p>{game.description}</p>
+      </div>
+    </button>
+  );
+}
 function getRandomIndex(arr) {
   return Math.floor(Math.random() * arr.length);
 }

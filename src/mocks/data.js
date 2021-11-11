@@ -5,7 +5,8 @@ export const pile = [
     boxArt:
       'https://www.giantbomb.com/a/uploads/original/8/87790/3005645-box_celeste.png',
     sortOrder: 1,
-    description: 'A game about some shit going bad somewhere.',
+    description:
+      'A game about some shit going bad somewhere. Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet Lorem ipsum dolar sit amet lorem ipsum dolar sit amet',
     completed: false,
   },
   {

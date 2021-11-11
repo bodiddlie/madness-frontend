@@ -7,6 +7,7 @@ module.exports = {
         expando: 'repeat(auto-fill, minmax(400px, 1fr) )',
       },
       colors: {
+        'pale-cream': '#e6e6e6',
         'dark-slate-gray': '#35524A',
         'slate-gray': '#627C85',
         'pewter-blue': '#779CAB',
