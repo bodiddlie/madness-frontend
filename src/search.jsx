@@ -11,13 +11,25 @@ export function Search({ searchResults, addGame, removeGame, list }) {
       {searchResults ? (
         <div className="grid gap-3 grid-cols-expando p-2">
           {searchResults.map((g) => (
-            <GameCard
-              key={g.id}
-              game={g}
-              handleAdd={() => addGame(g.id, g.title, g.boxArt, g.description)}
-              handleRemove={() => removeGame(g.id)}
-              isInList={isInList(list, g.id)}
-            />
+            <GameCard key={g.id} game={g}>
+              {isInList(list, g.id) ? (
+                <button
+                  type="button"
+                  className="py-3 px-6 text-white rounded-lg bg-red-400 shadow-lg self-end"
+                  onClick={() => removeGame(g.id)}
+                >
+                  Remove
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="py-3 px-6 text-white rounded-lg bg-green-400 shadow-lg self-end"
+                  onClick={() => addGame(g.id, g.title, g.boxArt)}
+                >
+                  Add
+                </button>
+              )}
+            </GameCard>
           ))}
         </div>
       ) : (

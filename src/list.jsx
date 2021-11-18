@@ -30,14 +30,7 @@ export function List({ onBracketClick, state }) {
     event.preventDefault();
     dispatch({ type: START_SEARCH });
     const data = await searchByTitle(state.searchValue);
-    console.log(data);
-    const results = data.map((g) => {
-      return {
-        ...g,
-        isInList: !!state.pile && !!state.pile.find((item) => item.id === g.id),
-      };
-    });
-    dispatch({ type: SET_RESULTS, payload: results });
+    dispatch({ type: SET_RESULTS, payload: data });
   };
 
   const handleChange = (event) => {
@@ -130,12 +123,15 @@ export function List({ onBracketClick, state }) {
             <React.Fragment>
               <div className="grid gap-3 grid-cols-expando p-2 pb-16">
                 {state.pile.map((g) => (
-                  <GameCard
-                    game={g}
-                    key={g.id}
-                    handleRemove={() => handleRemove(g.id)}
-                    isInList={isInList(state.pile, g.id)}
-                  />
+                  <GameCard game={g} key={g.id}>
+                    <button
+                      type="button"
+                      className="py-3 px-6 text-white rounded-lg bg-red-400 shadow-lg self-end"
+                      onClick={() => handleRemove(g.id)}
+                    >
+                      Remove
+                    </button>
+                  </GameCard>
                 ))}
               </div>
             </React.Fragment>
@@ -146,8 +142,4 @@ export function List({ onBracketClick, state }) {
       )}
     </div>
   );
-}
-
-function isInList(list, id) {
-  return !!list.find((g) => g.id === id);
 }

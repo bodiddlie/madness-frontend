@@ -3,6 +3,7 @@ import React from 'react';
 import { getTopGame, completeGame } from './api';
 import { Dispatch } from './focus-container';
 import { SET_UNSORTED } from './reducer';
+import { GameCard } from './game-card';
 
 export function Focus() {
   const [game, setGame] = React.useState(null);
@@ -30,12 +31,15 @@ export function Focus() {
   return (
     <div>
       {game ? (
-        <div>
-          {game.title}
-          <button type="button" onClick={handleClick}>
+        <GameCard game={game}>
+          <button
+            type="button"
+            className="py-3 px-6 text-white rounded-lg bg-blue-400 shadow-lg self-end"
+            onClick={handleClick}
+          >
             Complete
           </button>
-        </div>
+        </GameCard>
       ) : (
         <div>Loading...</div>
       )}

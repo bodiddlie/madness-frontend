@@ -70,7 +70,6 @@ export function Bracket({ pile }) {
         setSorted(s);
         setFirst(null);
         setSecond(null);
-        console.table(s);
         updateSort(s).then(() => {
           dispatch({ type: SET_SORTED });
         });
@@ -78,7 +77,6 @@ export function Bracket({ pile }) {
     }
   }
 
-  console.log(first);
   return (
     <React.Fragment>
       {!!first && !!second ? (
