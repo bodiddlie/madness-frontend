@@ -29,17 +29,20 @@ export function Focus() {
   };
 
   return (
-    <div>
+    <div className="p-2">
       {game ? (
-        <GameCard game={game}>
-          <button
-            type="button"
-            className="py-3 px-6 text-white rounded-lg bg-blue-400 shadow-lg self-end"
-            onClick={handleClick}
-          >
-            Complete
-          </button>
-        </GameCard>
+        <React.Fragment>
+          <h3 className="text-xl font-bold">Current Game</h3>
+          <GameCard game={game}>
+            <button
+              type="button"
+              className="py-3 px-6 text-white rounded-lg bg-blue-400 shadow-lg self-end"
+              onClick={handleClick}
+            >
+              Complete
+            </button>
+          </GameCard>
+        </React.Fragment>
       ) : (
         <div>Loading...</div>
       )}
