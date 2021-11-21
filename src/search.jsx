@@ -1,16 +1,38 @@
 import React from 'react';
 import { GameCard } from './game-card';
 import { MdSearch } from 'react-icons/md';
-import { searchByTitle } from './api';
+import { addGame, removeGame, searchByTitle } from './api';
+import { Dispatch, State } from './focus-container';
+import { ADD_GAME, REMOVE_GAME } from './reducer';
 
 function isInList(list, id) {
   return !!list.find((g) => g.id === id);
 }
 
-export function Search({ addGame, removeGame, list, actionButton, children }) {
+export function Search({ actionButton, children }) {
+  const state = React.useContext(State);
+  const dispatch = React.useContext(Dispatch);
   const [searchValue, setSearchValue] = React.useState('');
   const [showSearch, setShowSearch] = React.useState(false);
   const [searchResults, setSearchResults] = React.useState([]);
+
+  const handleAdd = async (id, title, boxArt, description) => {
+    try {
+      const game = await addGame(id, title, boxArt, description);
+      dispatch({ type: ADD_GAME, payload: game });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRemove = async (id) => {
+    try {
+      await removeGame(id);
+      dispatch({ type: REMOVE_GAME, payload: id });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,11 +85,11 @@ export function Search({ addGame, removeGame, list, actionButton, children }) {
             <div className="grid gap-3 grid-cols-expando p-2">
               {searchResults.map((g) => (
                 <GameCard key={g.id} game={g}>
-                  {isInList(list, g.id) ? (
+                  {isInList(state.pile, g.id) ? (
                     <button
                       type="button"
                       className="py-3 px-6 text-white rounded-lg bg-red-400 shadow-lg self-end"
-                      onClick={() => removeGame(g.id)}
+                      onClick={() => handleRemove(g.id)}
                     >
                       Remove
                     </button>
@@ -75,7 +97,7 @@ export function Search({ addGame, removeGame, list, actionButton, children }) {
                     <button
                       type="button"
                       className="py-3 px-6 text-white rounded-lg bg-green-400 shadow-lg self-end"
-                      onClick={() => addGame(g.id, g.title, g.boxArt)}
+                      onClick={() => handleAdd(g.id, g.title, g.boxArt)}
                     >
                       Add
                     </button>

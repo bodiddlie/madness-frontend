@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { addGame, getList, removeGame } from './api';
+import { getList, removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
 import { Dispatch } from './focus-container';
 
-import { LOAD_PILE, SET_PILE, ADD_GAME, REMOVE_GAME } from './reducer';
+import { LOAD_PILE, SET_PILE, REMOVE_GAME } from './reducer';
 
 export function List({ onBracketClick, state }) {
   const dispatch = React.useContext(Dispatch);
@@ -14,15 +14,6 @@ export function List({ onBracketClick, state }) {
     dispatch({ type: LOAD_PILE });
     getList().then((pile) => dispatch({ type: SET_PILE, payload: pile }));
   }, [dispatch]);
-
-  const handleAdd = async (id, title, boxArt, description) => {
-    try {
-      const game = await addGame(id, title, boxArt, description);
-      dispatch({ type: ADD_GAME, payload: game });
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const handleRemove = async (id) => {
     try {
@@ -40,9 +31,6 @@ export function List({ onBracketClick, state }) {
   return (
     <div className="flex flex-col flex-grow">
       <Search
-        addGame={handleAdd}
-        removeGame={handleRemove}
-        list={state.pile}
         actionButton={
           <button
             type="button"
