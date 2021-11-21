@@ -4,7 +4,14 @@ import { Bracket } from './bracket';
 import { Focus } from './focus';
 import { List } from './list';
 
-import { reducer, initialValue, SHOW_BRACKET } from './reducer';
+import {
+  reducer,
+  initialValue,
+  SHOW_BRACKET,
+  LOAD_PILE,
+  SET_PILE,
+} from './reducer';
+import { getList } from './api';
 
 export const Dispatch = React.createContext(null);
 export const State = React.createContext(null);
@@ -18,6 +25,11 @@ export function FocusContainer({ profile }) {
   const handleBracketClick = () => {
     dispatch({ type: SHOW_BRACKET });
   };
+
+  React.useEffect(() => {
+    dispatch({ type: LOAD_PILE });
+    getList().then((pile) => dispatch({ type: SET_PILE, payload: pile }));
+  }, [dispatch]);
 
   return (
     <State.Provider value={state}>

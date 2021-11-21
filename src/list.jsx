@@ -1,19 +1,14 @@
 import React from 'react';
 
-import { getList, removeGame } from './api';
+import { removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
 import { Dispatch } from './focus-container';
 
-import { LOAD_PILE, SET_PILE, REMOVE_GAME } from './reducer';
+import { REMOVE_GAME } from './reducer';
 
 export function List({ onBracketClick, state }) {
   const dispatch = React.useContext(Dispatch);
-
-  React.useEffect(() => {
-    dispatch({ type: LOAD_PILE });
-    getList().then((pile) => dispatch({ type: SET_PILE, payload: pile }));
-  }, [dispatch]);
 
   const handleRemove = async (id) => {
     try {
