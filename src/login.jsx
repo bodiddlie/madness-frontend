@@ -63,17 +63,31 @@ export function Login() {
     );
   } else {
     return (
-      <div className="flex-grow flex flex-col p-2">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="border border-blue-600 p-1"
-            value={state.email}
-            onChange={handleChange}
-          />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit} className="flex flex-col p-2">
+        <p className="mb-4 italic font-bold">
+          Enter your email and we'll send you a "magic link" that you can use to
+          log in. No accounts to create, no passwords to remember. Just use your
+          email! Easy!
+        </p>
+        <label htmlFor="email" className="font-extrabold">
+          Email Address
+        </label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          className="flex-1 py-4 px-2 mb-2 rounded-2xl bg-white appearance-none"
+          placeholder="Enter your email..."
+          value={state.email}
+          onChange={handleChange}
+        />
+        <button
+          type="submit"
+          className="w-24 p-1 bg-blue-400 rounded border border-blue-400 disabled:bg-gray-200"
+        >
+          Request Magic Link
+        </button>
+      </form>
     );
   }
 }
