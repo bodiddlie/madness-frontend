@@ -4,8 +4,8 @@ import { removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
 import { Dispatch } from './focus-container';
-
 import { REMOVE_GAME } from './reducer';
+import { Loading } from './loading';
 
 export function List({ onBracketClick, state }) {
   const dispatch = React.useContext(Dispatch);
@@ -55,7 +55,7 @@ export function List({ onBracketClick, state }) {
               </div>
             </React.Fragment>
           ) : (
-            <div>Loading...</div>
+            <Loading />
           )}
         </React.Fragment>
       </Search>

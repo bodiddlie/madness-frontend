@@ -5,6 +5,7 @@ export const SET_PILE = 'SET_PILE';
 export const SHOW_BRACKET = 'SHOW_BRACKET';
 export const SET_SORTED = 'SET_SORTED';
 export const SET_UNSORTED = 'SET_UNSORTED';
+export const HIDE_BRACKET = 'HIDE_BRACKET';
 
 export const initialValue = {
   showBracket: false,
@@ -34,6 +35,9 @@ export function reducer(state, action) {
     }
     case SHOW_BRACKET: {
       return { ...state, showBracket: true };
+    }
+    case HIDE_BRACKET: {
+      return { ...state, showBracket: false };
     }
     case SET_SORTED: {
       return { ...state, isSorted: true, showBracket: false };

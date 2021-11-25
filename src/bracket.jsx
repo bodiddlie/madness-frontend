@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { updateSort } from './api';
 
 import { Dispatch } from './focus-container';
-import { SET_SORTED } from './reducer';
+import { SET_SORTED, HIDE_BRACKET } from './reducer';
 
 export function Bracket({ pile }) {
   const [remaining, setRemaining] = useState([]);
@@ -14,6 +14,10 @@ export function Bracket({ pile }) {
   const [gold, setGold] = useState(null);
 
   const dispatch = React.useContext(Dispatch);
+
+  const handleCancel = () => {
+    dispatch({ type: HIDE_BRACKET });
+  };
 
   useEffect(() => {
     let gamesLeft = [...pile];
@@ -81,6 +85,13 @@ export function Bracket({ pile }) {
     <React.Fragment>
       {!!first && !!second ? (
         <div className="flex flex-col flex-grow">
+          <button
+            type="button"
+            className="m-1 p-2 bg-blue-400 rounded border border-blue-400"
+            onClick={handleCancel}
+          >
+            Cancel Tournament
+          </button>
           <GameButton game={first} handleChoice={() => pick(first, second)} />
           <div className="text-center bg-blue-800 text-white font-extrabold">
             VS

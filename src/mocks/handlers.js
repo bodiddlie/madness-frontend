@@ -8,13 +8,14 @@ const usedPile = [...pile];
 export const handlers = [
   // LOGIN & SIGNUP HANDLERS
   rest.post(`${BASE_URL}/${ENV}/signup`, (req, res, ctx) => {
-    return res(ctx.status(200));
+    return res(ctx.delay(500), ctx.status(200));
   }),
 
   rest.post(`${BASE_URL}/${ENV}/login`, (req, res, ctx) => {
     return res(
+      ctx.delay(500),
       ctx.status(200),
-      ctx.json({ email: 'test@test.com', token: '12345' })
+      ctx.json({ email: 'test@test.com', token: '12345' }),
     );
   }),
 
@@ -25,7 +26,7 @@ export const handlers = [
 
   // BULK GAMES HANDLERS
   rest.get(`${BASE_URL}/${ENV}/games`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(pile));
+    return res(ctx.delay(3500), ctx.status(200), ctx.json(pile));
   }),
 
   // ADD GAME HANDLER

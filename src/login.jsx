@@ -1,40 +1,79 @@
 import React from 'react';
 import { useAuth } from './auth';
+import { Loading } from './loading';
+
+const initialState = {
+  email: '',
+  loading: false,
+  showSuccess: false,
+};
+
+const EMAIL_UPDATE = 'EMAIL_UPDATE';
+const REQUEST_LINK = 'REQUEST_LINK';
+const LINK_SENT = 'LINK_SENT';
+
+function reducer(state = initialState, action = {}) {
+  const { type, payload } = action;
+  switch (type) {
+    case EMAIL_UPDATE: {
+      return { ...state, email: payload };
+    }
+    case REQUEST_LINK: {
+      return { ...state, loading: true, showSuccess: false };
+    }
+    case LINK_SENT: {
+      return { ...state, loading: false, showSuccess: true };
+    }
+    default: {
+      return state;
+    }
+  }
+}
 
 export function Login() {
-  const [email, setEmail] = React.useState('');
-  const [showSuccess, setShowSuccess] = React.useState(false);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   const auth = useAuth();
 
   const handleChange = (event) => {
-    setEmail(event.target.value);
+    dispatch({ type: EMAIL_UPDATE, payload: event.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await auth.signup(email);
-    setShowSuccess(true);
+    dispatch({ type: REQUEST_LINK });
+    await auth.signup(state.email);
+    dispatch({ type: LINK_SENT });
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="border border-blue-600 p-1"
-          value={email}
-          onChange={handleChange}
-        />
-        <button type="submit">Login</button>
-      </form>
-      {showSuccess ? (
-        <div>
-          <h3>
-            A magic link has been sent to {email}. Check your email and click
-            the link to login!
-          </h3>
-        </div>
-      ) : null}
-    </div>
-  );
+  if (state.loading) {
+    return (
+      <div className="flex-grow flex flex-col p-2">
+        <h1>Requesting magic link...</h1>
+        <Loading />
+      </div>
+    );
+  } else if (state.showSuccess) {
+    return (
+      <div className="flex-grow flex flex-col p-2">
+        <h3>
+          A magic link has been sent to {state.email}. Check your email and
+          click the link to login!
+        </h3>
+      </div>
+    );
+  } else {
+    return (
+      <div className="flex-grow flex flex-col p-2">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="border border-blue-600 p-1"
+            value={state.email}
+            onChange={handleChange}
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    );
+  }
 }
