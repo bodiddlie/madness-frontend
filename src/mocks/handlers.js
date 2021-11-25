@@ -9,6 +9,7 @@ export const handlers = [
   // LOGIN & SIGNUP HANDLERS
   rest.post(`${BASE_URL}/${ENV}/signup`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.status(200));
+    // return res(ctx.delay(500), ctx.status(500));
   }),
 
   rest.post(`${BASE_URL}/${ENV}/login`, (req, res, ctx) => {

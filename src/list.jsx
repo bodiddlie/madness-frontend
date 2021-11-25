@@ -55,7 +55,9 @@ export function List({ onBracketClick, state }) {
               </div>
             </React.Fragment>
           ) : (
-            <Loading />
+            <div className="flex-col flex-grow flex justify-center items-center">
+              <Loading />
+            </div>
           )}
         </React.Fragment>
       </Search>
