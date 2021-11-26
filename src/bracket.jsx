@@ -3,6 +3,7 @@ import { updateSort } from './api';
 
 import { Dispatch } from './focus-container';
 import { SET_SORTED, HIDE_BRACKET } from './reducer';
+import { ActionButton } from './action-button';
 
 export function Bracket({ pile }) {
   const [remaining, setRemaining] = useState([]);
@@ -74,9 +75,14 @@ export function Bracket({ pile }) {
         setSorted(s);
         setFirst(null);
         setSecond(null);
-        updateSort(s).then(() => {
-          dispatch({ type: SET_SORTED });
-        });
+        updateSort(s)
+          .then(() => {
+            dispatch({ type: SET_SORTED });
+          })
+          .catch((error) => {
+            console.error(error);
+            //TODO: how do we handle errors on updating sort order?
+          });
       }
     }
   }
@@ -105,16 +111,22 @@ export function Bracket({ pile }) {
 
 function GameButton({ game, handleChoice }) {
   return (
-    <button
-      className="flex-grow flex items-center p-4 border-2 border-blue-800 rounded-lg m-1 bg-white"
-      onClick={handleChoice}
-    >
-      <img className="max-h-24" src={game.boxArt} alt={game.title} />
-      <div className="flex flex-col ml-5 w-full">
-        <h4 className="text-xl font-semibold mb-2">{game.title}</h4>
-        <p>{game.description}</p>
+    <div className="flex-grow flex flex-col justify-between p-4 border-2 border-blue-800 rounded-lg m-1 bg-white">
+      <div className="flex-grow flex items-center p-4">
+        <img className="max-h-24" src={game.boxArt} alt={game.title} />
+        <div className="flex flex-col ml-5 w-full">
+          <h4 className="text-xl font-semibold mb-2">{game.title}</h4>
+          <p>{game.description}</p>
+        </div>
       </div>
-    </button>
+      <ActionButton
+        performingAction={false}
+        onClick={handleChoice}
+        className="w-full"
+      >
+        Choose {game.title}
+      </ActionButton>
+    </div>
   );
 }
 function getRandomIndex(arr) {

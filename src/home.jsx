@@ -5,6 +5,7 @@ import { getUserProfile } from './api';
 import { FocusContainer } from './focus-container';
 import { Login } from './login';
 import { MagicLink } from './magic-link';
+import { Loading } from './loading';
 
 export default function Home({ magicLink }) {
   const [profile, setProfile] = React.useState(null);
@@ -33,7 +34,13 @@ export default function Home({ magicLink }) {
 
   return (
     <React.Fragment>
-      {!profile ? <div>Loading...</div> : <FocusContainer profile={profile} />}
+      {!profile ? (
+        <div className="flex flex-grow flex-col justify-center items-center p-2">
+          <Loading />
+        </div>
+      ) : (
+        <FocusContainer profile={profile} />
+      )}
     </React.Fragment>
   );
 }
