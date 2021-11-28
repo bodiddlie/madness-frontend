@@ -109,11 +109,19 @@ export function Bracket({ pile }) {
           >
             Cancel Tournament
           </button>
-          <GameButton game={first} handleChoice={() => pick(first, second)} />
+          <GameButton
+            game={first}
+            handleChoice={() => pick(first, second)}
+            first={true}
+          />
           <div className="text-center bg-blue-800 text-white font-extrabold">
             VS
           </div>
-          <GameButton game={second} handleChoice={() => pick(second, first)} />
+          <GameButton
+            game={second}
+            handleChoice={() => pick(second, first)}
+            first={false}
+          />
         </div>
       ) : (
         <React.Fragment>
@@ -145,9 +153,14 @@ export function Bracket({ pile }) {
   );
 }
 
-function GameButton({ game, handleChoice }) {
+function GameButton({ game, handleChoice, first }) {
+  let classes =
+    'flex-grow flex flex-col justify-between p-4 border-2 border-blue-800 rounded-lg m-1 bg-white';
+  if (!first) {
+    classes += ' flex-col-reverse';
+  }
   return (
-    <div className="flex-grow flex flex-col justify-between p-4 border-2 border-blue-800 rounded-lg m-1 bg-white">
+    <div className={classes}>
       <div className="flex-grow flex items-center p-4">
         <img className="max-h-24" src={game.boxArt} alt={game.title} />
         <div className="flex flex-col ml-5 w-full">

@@ -103,6 +103,7 @@ export function Search({ actionButton, children }) {
   const state = React.useContext(State);
   const dispatch = React.useContext(Dispatch);
   const [innerState, innerDispatch] = React.useReducer(reducer, initialState);
+  const searchRef = React.useRef();
 
   const handleAdd = async (id, title, boxArt, description) => {
     try {
@@ -164,6 +165,7 @@ export function Search({ actionButton, children }) {
 
   const clearSearch = () => {
     innerDispatch({ type: UPDATE_SEARCH_VALUE, payload: '' });
+    searchRef.current.focus();
   };
 
   return (
@@ -171,6 +173,7 @@ export function Search({ actionButton, children }) {
       <form onSubmit={handleSubmit} className="flex pr-2">
         <div className="flex bg-white flex-1">
           <input
+            ref={searchRef}
             type="text"
             name="search"
             className="flex-1 p-1 rounded-none bg-white appearance-none"
