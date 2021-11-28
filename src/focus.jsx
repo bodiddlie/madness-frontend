@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTopGame, completeGame } from './api';
+import { getTopGame, removeGame } from './api';
 import { Dispatch } from './focus-container';
 import { SET_UNSORTED } from './reducer';
 import { GameCard } from './game-card';
@@ -12,17 +12,26 @@ export function Focus() {
   const [game, setGame] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [completing, setCompleting] = React.useState(false);
+  const [errorText, setErrorText] = React.useState(null);
   const dispatch = React.useContext(Dispatch);
 
   const loadGame = React.useCallback(() => {
-    getTopGame().then((g) => {
-      setGame(g);
-      setLoading(false);
-      setCompleting(false);
-      if (!g) {
-        dispatch({ type: SET_UNSORTED });
-      }
-    });
+    getTopGame()
+      .then((g) => {
+        setGame(g);
+        setLoading(false);
+        setCompleting(false);
+        if (!g) {
+          dispatch({ type: SET_UNSORTED });
+        }
+        setErrorText(null);
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorText(
+          'An error occurred while loading the next game in your list. Please try reloading.',
+        );
+      });
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -31,8 +40,17 @@ export function Focus() {
 
   const handleClick = async () => {
     setCompleting(true);
-    await completeGame(game.id);
-    loadGame();
+    try {
+      await removeGame(game.id);
+      setErrorText(null);
+      loadGame();
+    } catch (err) {
+      console.error(err);
+      setErrorText(
+        'An error occurred while completing the game. Please try again.',
+      );
+    }
+    setCompleting(false);
   };
 
   return (
@@ -60,6 +78,11 @@ export function Focus() {
           >
             <div className="p-2">
               <h3 className="text-xl font-bold">Current Game</h3>
+              {!!errorText && (
+                <h3 className="text-gray-800 border border-gray-800 bg-red-200 p-2 rounded-2xl m-2">
+                  {errorText}
+                </h3>
+              )}
               <GameCard game={game}>
                 <ActionButton
                   performingAction={completing}

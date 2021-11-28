@@ -93,7 +93,7 @@ export function Bracket({ pile }) {
         <div className="flex flex-col flex-grow">
           <button
             type="button"
-            className="m-1 p-2 bg-blue-400 rounded border border-blue-400"
+            className="m-1 p-2 bg-yellow-400 rounded border border-gray-800 text-gray-800"
             onClick={handleCancel}
           >
             Cancel Tournament
