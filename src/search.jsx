@@ -197,7 +197,9 @@ export function Search({ actionButton, children }) {
           <button
             type="submit"
             className="w-10 flex justify-center items-center text-2xl"
-            disabled={innerState.loading}
+            disabled={
+              innerState.loading || innerState.searchValue.trim().length === 0
+            }
           >
             <MdSearch />
           </button>
