@@ -65,10 +65,10 @@ export default function Home({ magicLink }) {
           <li>Pick the winners of each match</li>
         </ul>
         <p className="mb-4 italic">
-          After that, you're choices of winners and losers will result in a
-          sorted list of games. We'll present you with the next top game on your
-          list, so you can maintain focus on you Pile of Shame (you can add new
-          games to the end of the list).
+          After that, your choices of winners and losers will result in a sorted
+          list of games. We'll present you with the next top game on your list,
+          so you can maintain focus on you Pile of Shame (you can add new games
+          to the end of the list).
         </p>
       </div>
     );
