@@ -40,7 +40,7 @@ export const handlers = [
 
   // GET TOP GAME HANDLER
   rest.get(`${BASE_URL}/${ENV}/topgame`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.status(200), ctx.json(usedPile.shift()));
+    return res(ctx.delay(1500), ctx.status(200), ctx.json(usedPile.shift()));
   }),
 
   rest.patch(`${BASE_URL}/${ENV}/games/:id`, (req, res, ctx) => {
@@ -48,8 +48,8 @@ export const handlers = [
   }),
 
   rest.delete(`${BASE_URL}/${ENV}/games/:id`, (req, res, ctx) => {
-    // return res(ctx.delay(500), ctx.status(204));
-    return res(ctx.delay(500), ctx.status(500));
+    return res(ctx.delay(500), ctx.status(204));
+    // return res(ctx.delay(500), ctx.status(500));
   }),
 
   // USER PROFILE HANDLERS
@@ -59,5 +59,6 @@ export const handlers = [
 
   rest.put(`${BASE_URL}/${ENV}/games/sort`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.status(204));
+    // return res(ctx.delay(500), ctx.status(500));
   }),
 ];

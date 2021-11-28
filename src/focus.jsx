@@ -50,7 +50,6 @@ export function Focus() {
         'An error occurred while completing the game. Please try again.',
       );
     }
-    setCompleting(false);
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GameCard } from './game-card';
-import { MdSearch } from 'react-icons/md';
+import { MdSearch, MdClear } from 'react-icons/md';
 import { addGame, removeGame, searchByTitle } from './api';
 import { Dispatch, State } from './focus-container';
 import { ADD_GAME, REMOVE_GAME } from './reducer';
@@ -162,12 +162,16 @@ export function Search({ actionButton, children }) {
     innerDispatch({ type: HIDE_SEARCH });
   };
 
+  const clearSearch = () => {
+    innerDispatch({ type: UPDATE_SEARCH_VALUE, payload: '' });
+  };
+
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit} className="flex pr-2">
         <div className="flex bg-white flex-1">
           <input
-            type="search"
+            type="text"
             name="search"
             className="flex-1 p-1 rounded-none bg-white appearance-none"
             placeholder="Find a game..."
@@ -180,6 +184,13 @@ export function Search({ actionButton, children }) {
             }
             onFocus={() => innerDispatch({ type: SHOW_SEARCH })}
           />
+          <button
+            type="button"
+            className="w-10 flex justify-center items-center text-2xl"
+            onClick={clearSearch}
+          >
+            <MdClear />
+          </button>
           <button
             type="submit"
             className="w-10 flex justify-center items-center text-2xl"

@@ -4,6 +4,7 @@ import { updateSort } from './api';
 import { Dispatch } from './focus-container';
 import { SET_SORTED, HIDE_BRACKET } from './reducer';
 import { ActionButton } from './action-button';
+import { Loading } from './loading';
 
 export function Bracket({ pile }) {
   const [remaining, setRemaining] = useState([]);
@@ -13,6 +14,8 @@ export function Bracket({ pile }) {
   const [first, setFirst] = useState(null);
   const [second, setSecond] = useState(null);
   const [gold, setGold] = useState(null);
+  const [updating, setUpdating] = useState(false);
+  const [error, setError] = useState(false);
 
   const dispatch = React.useContext(Dispatch);
 
@@ -75,17 +78,25 @@ export function Bracket({ pile }) {
         setSorted(s);
         setFirst(null);
         setSecond(null);
-        updateSort(s)
-          .then(() => {
-            dispatch({ type: SET_SORTED });
-          })
-          .catch((error) => {
-            console.error(error);
-            //TODO: how do we handle errors on updating sort order?
-          });
+        handleRetry();
       }
     }
   }
+
+  const handleRetry = () => {
+    setUpdating(true);
+    setError(false);
+    updateSort(sorted)
+      .then(() => {
+        setUpdating(false);
+        dispatch({ type: SET_SORTED });
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(true);
+        setUpdating(false);
+      });
+  };
 
   return (
     <React.Fragment>
@@ -104,7 +115,32 @@ export function Bracket({ pile }) {
           </div>
           <GameButton game={second} handleChoice={() => pick(second, first)} />
         </div>
-      ) : null}
+      ) : (
+        <React.Fragment>
+          {error && (
+            <div className="flex-grow flex flex-col justify-center items-center p-2">
+              <h3 className="flex flex-col text-gray-800 border border-gray-800 bg-red-200 p-2 rounded-2xl m-2">
+                <span>
+                  An error occurred while updating the sort order of your games.
+                </span>
+                <button
+                  type="button"
+                  className="py-1 py-3 text-white rounded-lg shadow-lg border bg-red-400 border-gray-800 mt-2"
+                  onClick={handleRetry}
+                >
+                  Try Again
+                </button>
+              </h3>
+            </div>
+          )}
+          {updating && (
+            <div className="flex-grow flex flex-col justify-center items-center p-2">
+              <h1 className="mb-4">Updating sort order...</h1>
+              <Loading />
+            </div>
+          )}
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 }
