@@ -43,7 +43,7 @@ export function reducer(state, action) {
       return { ...state, isSorted: true, showBracket: false };
     }
     case SET_UNSORTED: {
-      return { ...state, isSorted: false };
+      return { ...state, isSorted: false, pile: null };
     }
     default: {
       return state;

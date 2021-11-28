@@ -1,17 +1,23 @@
 import React from 'react';
 
-import { removeGame } from './api';
+import { getList, removeGame } from './api';
 import { Search } from './search';
 import { GameCard } from './game-card';
-import { Dispatch } from './focus-container';
-import { REMOVE_GAME } from './reducer';
+import { Dispatch, State } from './focus-container';
+import { LOAD_PILE, REMOVE_GAME, SET_PILE } from './reducer';
 import { Loading } from './loading';
 import { ActionButton } from './action-button';
 
-export function List({ onBracketClick, state }) {
+export function List({ onBracketClick }) {
+  const state = React.useContext(State);
   const dispatch = React.useContext(Dispatch);
   const [processingIds, setProcessingIds] = React.useState([]);
   const [errorText, setErrorText] = React.useState(null);
+
+  React.useEffect(() => {
+    dispatch({ type: LOAD_PILE });
+    getList().then((pile) => dispatch({ type: SET_PILE, payload: pile }));
+  }, [dispatch]);
 
   const handleRemove = async (id) => {
     let newIds = [...processingIds, id];
