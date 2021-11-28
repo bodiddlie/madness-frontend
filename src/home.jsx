@@ -70,6 +70,17 @@ export default function Home({ magicLink }) {
           so you can maintain focus on you Pile of Shame (you can add new games
           to the end of the list).
         </p>
+        <p className="text-xs italic">
+          Icons provided by{' '}
+          <a
+            href="https://game-icons.net/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-500 underline"
+          >
+            https://game-icons.net/
+          </a>
+        </p>
       </div>
     );
   }
