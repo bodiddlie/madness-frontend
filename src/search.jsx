@@ -147,7 +147,6 @@ export function Search({ actionButton, children }) {
       event.preventDefault();
       innerDispatch({ type: START_SEARCH });
       const data = await searchByTitle(innerState.searchValue);
-      console.log(data);
       innerDispatch({ type: LOAD_SEARCH, payload: data });
     } catch (error) {
       console.error(error);
@@ -210,7 +209,7 @@ export function Search({ actionButton, children }) {
         <React.Fragment>
           {innerState.searchResults ? (
             <React.Fragment>
-              {innerState.searchResults.length > 1 ? (
+              {innerState.searchResults.length > 0 ? (
                 <div className="grid gap-3 grid-cols-expando p-2">
                   {innerState.searchResults.map((g) => (
                     <GameCard key={g.id} game={g}>
