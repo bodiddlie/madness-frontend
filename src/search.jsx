@@ -147,6 +147,7 @@ export function Search({ actionButton, children }) {
       event.preventDefault();
       innerDispatch({ type: START_SEARCH });
       const data = await searchByTitle(innerState.searchValue);
+      console.log(data);
       innerDispatch({ type: LOAD_SEARCH, payload: data });
     } catch (error) {
       console.error(error);
