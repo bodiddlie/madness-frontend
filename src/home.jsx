@@ -37,7 +37,7 @@ export default function Home({ magicLink }) {
     return (
       <div className="flex flex-col p-2">
         <p className="mb-4 italic font-bold">
-          With the ease of access to games that digital delivery provides, and
+          With the ease of access to games that digital delivery provides and
           the ability to stock up on games in all the fantastic seasonal sales,
           it's harder than ever to decide which games you should play next.
         </p>
@@ -45,8 +45,8 @@ export default function Home({ magicLink }) {
           Now with{' '}
           <span className="not-italic font-bold text-red-700">
             Pile of Shame
-          </span>{' '}
-          you can pit your games against each other in a tournament to sort
+          </span>
+          , you can pit your games against each other in a tournament to sort
           them. It's super easy to get started!
         </p>
         <ul className="list-disc list-inside mb-4">
